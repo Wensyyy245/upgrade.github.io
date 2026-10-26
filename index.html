@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPGRADER — CS2 skins upgrade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bg-layer"><div class="bg-grid"></div><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="scan"></div></div>
+<canvas id="confetti" class="confetti-canvas"></canvas>
+
+<header class="header">
+  <div class="header-left">
+    <a class="logo" onclick="showPage('home')">
+      <span class="logo-mark"><i data-lucide="chevrons-up"></i></span>
+      <span class="logo-text">UPGRADER</span>
+    </a>
+    <div class="live-stats">
+      <div class="live-stat"><i data-lucide="users"></i><span id="statOnline">3 764</span></div>
+      <div class="live-stat"><i data-lucide="trending-up"></i><span id="statUpgrades">569 556 748</span></div>
+      <div class="live-stat"><i data-lucide="coins"></i><span id="statWagered">$0</span></div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" data-page="home"><i data-lucide="home"></i><span>Главная</span></button>
+    <button class="nav-btn" data-page="upgrade"><i data-lucide="arrow-up-circle"></i><span>Апгрейд</span></button>
+    <button class="nav-btn" data-page="cases"><i data-lucide="package"></i><span>Кейсы</span></button>
+    <button class="nav-btn" data-page="crash"><i data-lucide="rocket"></i><span>Краш</span></button>
+    <button class="nav-btn" data-page="mines"><i data-lucide="bomb"></i><span>Мины</span></button>
+    <button class="nav-btn" data-page="inventory"><i data-lucide="backpack"></i><span>Инвентарь</span></button>
+  </nav>
+
+  <div class="header-right">
+    <div class="balance-display" onclick="openModal('deposit')">
+      <span class="coin"></span>
+      <span class="balance-amount" id="balanceDisplay">0.00</span>
+      <i data-lucide="chevron-down" class="bd-caret"></i>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('deposit')"><i data-lucide="plus"></i><span>Пополнить</span></button>
+    <button class="btn btn-icon" onclick="showPage('profile')" title="Профиль"><i data-lucide="user"></i></button>
+    <button class="btn btn-icon" onclick="adminOpenAdminPanel()" title="Админ"><i data-lucide="settings"></i></button>
+  </div>
+</header>
+
+<div class="notification-container" id="notifications"></div>
+
+<main class="main">
+
+  <!-- ГЛАВНАЯ -->
+  <section class="page active" id="page-home">
+    <div class="welcome-hero">
+      <div class="hero-badge"><i data-lucide="sparkles"></i> Реальные предметы CS2</div>
+      <h1 class="glitch-title" data-text="UPGRADER">UPGRADER</h1>
+      <p>Апгрейд скинов, кейсы, краш и мины на реальной базе CS2. Забирай дроп — продавай в инвентаре.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="showPage('upgrade')"><i data-lucide="arrow-up-circle"></i>Начать апгрейд</button>
+        <button class="btn btn-ghost-lg" onclick="showPage('cases')"><i data-lucide="package"></i>Открыть кейс</button>
+      </div>
+    </div>
+
+    <h2 class="section-title"><i data-lucide="gamepad-2"></i>Игры</h2>
+    <div class="games-grid">
+      <div class="game-card tilt" onclick="showPage('upgrade')">
+        <div class="game-card-glow"></div>
+        <div class="game-card-icon gi-gold"><i data-lucide="arrow-up-circle"></i></div>
+        <div class="game-card-title">Апгрейд</div>
+        <div class="game-card-desc">Чем дороже цель — тем меньше шанс, но куш вкуснее.</div>
+        <div class="game-card-cta">Играть <i data-lucide="chevron-right"></i></div>
+      </div>
+      <div class="game-card tilt" onclick="showPage('cases')">
+        <div class="game-card-glow"></div>
+        <div class="game-card-icon gi-purple"><i data-lucide="package"></i></div>
+        <div class="game-card-title">Кейсы</div>
+        <div class="game-card-desc">Честные веса редкости CS2. Ножи и перчатки внутри.</div>
+        <div class="game-card-cta">Играть <i data-lucide="chevron-right"></i></div>
+      </div>
+      <div class="game-card tilt" onclick="showPage('crash')">
+        <div class="game-card-glow"></div>
+        <div class="game-card-icon gi-green"><i data-lucide="rocket"></i></div>
+        <div class="game-card-title">Краш</div>
+        <div class="game-card-desc">Множитель растёт — забери до взрыва. Авто-кэшаут есть.</div>
+        <div class="game-card-cta">Играть <i data-lucide="chevron-right"></i></div>
+      </div>
+      <div class="game-card tilt" onclick="showPage('mines')">
+        <div class="game-card-glow"></div>
+        <div class="game-card-icon gi-red"><i data-lucide="bomb"></i></div>
+        <div class="game-card-title">Мины</div>
+        <div class="game-card-desc">25 клеток, от 3 до 20 мин. Открывай геммы.</div>
+        <div class="game-card-cta">Играть <i data-lucide="chevron-right"></i></div>
+      </div>
+    </div>
+
+    <h2 class="section-title"><i data-lucide="flame"></i>Последние выигрыши</h2>
+    <div class="panel">
+      <table class="history-table">
+        <thead><tr><th>Игрок</th><th>Игра</th><th>Предмет</th><th>Сумма</th></tr></thead>
+        <tbody id="recentWins"><tr><td colspan="4" class="empty-hint">Загрузка...</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- АПГРЕЙД -->
+  <section class="page" id="page-upgrade">
+    <h2 class="section-title"><i data-lucide="arrow-up-circle"></i>Апгрейд</h2>
+    <div class="upgrade-container">
+      <div class="panel">
+        <div class="panel-title">Ваш скин</div>
+        <div class="upgrade-slot" id="upgradeLeft"></div>
+        <div class="balance-sum"><span>Сумма</span><b id="upgradeSum">$0.00</b></div>
+      </div>
+
+      <div class="upgrade-vs">
+        <div class="wheel-wrap" id="upgradeCircle">
+          <svg class="wheel" viewBox="0 0 300 300">
+            <defs>
+              <linearGradient id="winGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ffe45c"/><stop offset="45%" stop-color="#f5a623"/><stop offset="100%" stop-color="#ff4d4d"/>
+              </linearGradient>
+              <filter id="winGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <circle cx="150" cy="150" r="132" class="wheel-body"/>
+            <g id="wheelTicks"></g>
+            <path id="wheelFailArc" class="arc-fail"/>
+            <path id="wheelWinArc" class="arc-win" filter="url(#winGlow)"/>
+            <g id="wheelLabels"></g>
+            <g id="wheelArrow" class="wheel-arrow"><polygon points="150,14 140,42 160,42"/><rect x="148" y="40" width="4" height="14" rx="2"/></g>
+          </svg>
+          <div class="wheel-center">
+            <div class="chance" id="upgradeChanceBig">50.00%</div>
+            <div class="chance-label">шанс успеха</div>
+          </div>
+          <div class="wheel-verdict" id="wheelVerdict"></div>
+        </div>
+        <button class="btn btn-primary btn-lg upgrade-btn" id="upgradeBtn" onclick="startUpgrade()"><i data-lucide="zap"></i>Улучшить</button>
+        <div class="chance-presets">
+          <button class="multiplier-btn" data-chance="50">x2</button>
+          <button class="multiplier-btn" data-chance="25">x4</button>
+          <button class="multiplier-btn" data-chance="12.5">x8</button>
+          <button class="multiplier-btn" data-chance="5">x20</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Цель апгрейда</div>
+        <div class="upgrade-slot" id="upgradeRight"></div>
+        <div class="balance-sum"><span>Награда</span><b id="upgradeReward">$0.00</b></div>
+      </div>
+    </div>
+
+    <div class="upgrade-bottom">
+      <div class="panel">
+        <div class="panel-title"><i data-lucide="backpack"></i>Мои скины</div>
+        <div class="skins-scroller" id="mySkins"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><i data-lucide="library"></i>База CS2</div>
+        <div class="skins-scroller" id="availableSkins"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КЕЙСЫ -->
+  <section class="page" id="page-cases">
+    <h2 class="section-title"><i data-lucide="package"></i>Кейсы CS2</h2>
+    <div class="cases-grid" id="casesGrid"></div>
+  </section>
+
+  <!-- КРАШ -->
+  <section class="page" id="page-crash">
+    <h2 class="section-title"><i data-lucide="rocket"></i>Краш</h2>
+    <div class="crash-container">
+      <div class="crash-history" id="crashHistory"></div>
+      <div class="crash-display">
+        <div class="crash-multiplier waiting" id="crashMultiplier">1.00x</div>
+        <canvas class="crash-graph" id="crashGraph" width="720" height="170"></canvas>
+      </div>
+      <div class="crash-bet">
+        <div class="bet-input-group"><label>Ставка, $</label><input type="number" class="bet-input" id="crashBet" value="10" min="0.10" step="0.10"></div>
+        <div class="bet-input-group"><label>Авто-кэшаут, x</label><input type="number" class="bet-input" id="crashAutoCashout" value="2.00" min="1.01" step="0.01"></div>
+        <button class="btn btn-primary btn-lg" id="crashBetBtn" onclick="startCrash()"><i data-lucide="play"></i>СТАВКА</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- МИНЫ -->
+  <section class="page" id="page-mines">
+    <h2 class="section-title"><i data-lucide="bomb"></i>Мины</h2>
+    <div class="mines-container">
+      <div class="mines-settings">
+        <div class="bet-input-group"><label>Ставка, $</label><input type="number" class="bet-input" id="minesBet" value="10" min="0.10" step="0.10"></div>
+        <div class="bet-input-group"><label>Количество мин</label>
+          <select class="bet-input" id="minesCount">
+            <option value="3">3 мины</option><option value="5" selected>5 мин</option><option value="7">7 мин</option>
+            <option value="10">10 мин</option><option value="15">15 мин</option><option value="20">20 мин</option>
+          </select>
+        </div>
+      </div>
+      <div class="mines-info">
+        <div class="mi-item"><i data-lucide="layers"></i>Открыто: <strong id="minesOpened">0</strong></div>
+        <div class="mi-item">Множитель: <strong class="mines-multiplier" id="minesMultiplier">1.00x</strong></div>
+        <button class="btn btn-success" id="minesCashoutBtn" onclick="cashoutMines()" disabled><i data-lucide="hand-coins"></i>ЗАБРАТЬ ($0.00)</button>
+      </div>
+      <div class="mines-grid" id="minesGrid"></div>
+      <button class="btn btn-primary btn-lg mines-start" id="minesStartBtn" onclick="startMines()"><i data-lucide="play"></i>НАЧАТЬ ИГРУ</button>
+    </div>
+  </section>
+
+  <!-- ИНВЕНТАРЬ -->
+  <section class="page" id="page-inventory">
+    <h2 class="section-title"><i data-lucide="backpack"></i>Инвентарь</h2>
+    <div class="inv-toolbar">
+      <div class="inv-stat"><span class="inv-stat-label">Предметов</span><span class="inv-stat-value" id="invCount">0</span></div>
+      <div class="inv-stat"><span class="inv-stat-label">Стоимость</span><span class="inv-stat-value gold" id="invValue">$0.00</span></div>
+      <div class="inv-stat"><span class="inv-stat-label">При продаже (85%)</span><span class="inv-stat-value green" id="invSellAll">$0.00</span></div>
+      <div class="inv-actions">
+        <select class="bet-input inv-filter" id="invFilter" onchange="renderInventory()">
+          <option value="all">Все редкости</option><option value="knife">★ Нож/перчатки</option>
+          <option value="covert">Тайные</option><option value="classified">Засекреченные</option>
+          <option value="restricted">Запрещённые</option><option value="milspec">Армейские</option>
+        </select>
+        <button class="btn btn-danger" onclick="sellAll()"><i data-lucide="trash-2"></i>Продать всё</button>
+      </div>
+    </div>
+    <div class="skins-grid" id="inventoryGrid"></div>
+  </section>
+
+  <!-- ПРОФИЛЬ -->
+  <section class="page" id="page-profile">
+    <h2 class="section-title"><i data-lucide="user"></i>Профиль</h2>
+    <div class="profile-container">
+      <div class="panel profile-header">
+        <div class="profile-avatar"><span id="profileAvatar">U</span></div>
+        <div class="profile-info">
+          <div class="profile-name" id="profileName">User_00000</div>
+          <div class="profile-sub">Демо-аккаунт · данные в localStorage</div>
+          <div class="profile-stats">
+            <div class="profile-stat"><div class="profile-stat-value" id="profileBalance">$0.00</div><div class="profile-stat-label">Баланс</div></div>
+            <div class="profile-stat"><div class="profile-stat-value win" id="profileWon">$0.00</div><div class="profile-stat-label">Выиграно</div></div>
+            <div class="profile-stat"><div class="profile-stat-value loss" id="profileLost">$0.00</div><div class="profile-stat-label">Потрачено</div></div>
+            <div class="profile-stat"><div class="profile-stat-value" id="profileNet">$0.00</div><div class="profile-stat-label">Чистыми</div></div>
+            <div class="profile-stat"><div class="profile-stat-value" id="profileGames">0</div><div class="profile-stat-label">Игр</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><i data-lucide="history"></i>История игр</div>
+        <table class="history-table"><thead><tr><th>Время</th><th>Игра</th><th>Ставка</th><th>Результат</th><th>Сумма</th></tr></thead><tbody id="gameHistory"></tbody></table>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><i data-lucide="backpack"></i>Мои предметы</div>
+        <div class="skins-grid" id="profileSkins"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- АДМИН -->
+  <section class="page" id="page-admin">
+    <h2 class="section-title"><i data-lucide="shield-check"></i>Админ-панель</h2>
+    <div class="admin-container">
+      <div class="admin-stat-grid">
+        <div class="admin-stat-card"><div class="admin-stat-value" id="adminTotalGames">0</div><div class="admin-stat-label">Всего игр</div></div>
+        <div class="admin-stat-card"><div class="admin-stat-value" id="adminWagered">$0</div><div class="admin-stat-label">Оборот ставок</div></div>
+        <div class="admin-stat-card"><div class="admin-stat-value loss" id="adminPaidOut">$0</div><div class="admin-stat-label">Выплачено</div></div>
+        <div class="admin-stat-card"><div class="admin-stat-value win" id="adminProfit">$0</div><div class="admin-stat-label">Профиль сайта</div></div>
+        <div class="admin-stat-card"><div class="admin-stat-value" id="adminEdge">0%</div><div class="admin-stat-label">Преимущество</div></div>
+        <div class="admin-stat-card"><div class="admin-stat-value" id="adminBalance">$0</div><div class="admin-stat-label">Баланс юзера</div></div>
+        <div class="admin-stat-card"><div class="admin-stat-value" id="adminCases">0</div><div class="admin-stat-label">Кейсов</div></div>
+        <div class="admin-stat-card"><div class="admin-stat-value" id="adminSkins">0</div><div class="admin-stat-label">Скинов</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><i data-lucide="sliders-horizontal"></i>Управление</div>
+        <div class="admin-controls">
+          <input type="number" class="bet-input" id="adminBalanceInput" placeholder="Сумма: 1000 или -500">
+          <button class="btn btn-success" onclick="adminAddBalance()"><i data-lucide="plus"></i>Начислить</button>
+          <button class="btn btn-secondary" onclick="adminSetBalance()"><i data-lucide="target"></i>Установить</button>
+          <button class="btn btn-secondary" onclick="adminGiveRandomSkin()"><i data-lucide="gift"></i>Выдать скин</button>
+          <button class="btn btn-danger" onclick="adminReset()"><i data-lucide="rotate-ccw"></i>Сброс</button>
+        </div>
+      </div>
+      <div class="panel mt-24">
+        <div class="panel-title"><i data-lucide="scroll-text"></i>Журнал ставок</div>
+        <div id="adminLog"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal-overlay" id="modal-deposit">
+  <div class="modal glass">
+    <button class="modal-close" onclick="closeModal('deposit')"><i data-lucide="x"></i></button>
+    <div class="modal-title"><i data-lucide="wallet"></i>Пополнение</div>
+    <div class="bet-input-group mb-16"><label>Сумма, $</label><input type="number" class="bet-input" id="depositAmount" value="100" min="1"></div>
+    <div class="flex gap-12 mb-16 flex-wrap">
+      <button class="btn btn-secondary" onclick="setDeposit(10)">$10</button>
+      <button class="btn btn-secondary" onclick="setDeposit(50)">$50</button>
+      <button class="btn btn-secondary" onclick="setDeposit(100)">$100</button>
+      <button class="btn btn-secondary" onclick="setDeposit(500)">$500</button>
+      <button class="btn btn-secondary" onclick="setDeposit(1000)">$1000</button>
+    </div>
+    <button class="btn btn-primary btn-lg" style="width:100%" onclick="deposit()"><i data-lucide="plus"></i>ПОПОЛНИТЬ</button>
+    <div class="deposit-hint">Демо-режим · реальные платежи отключены</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-case">
+  <div class="modal modal-wide glass">
+    <button class="modal-close" onclick="closeModal('case')"><i data-lucide="x"></i></button>
+    <div id="caseModalBody"></div>
+    <div class="case-roulette"><div class="case-roulette-indicator"></div><div class="case-roulette-strip" id="caseRoulette"></div></div>
+    <div id="caseResult" class="case-result hidden"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-sell">
+  <div class="modal glass" style="max-width:420px">
+    <button class="modal-close" onclick="closeModal('sell')"><i data-lucide="x"></i></button>
+    <div class="modal-title"><i data-lucide="hand-coins"></i>Продажа предмета</div>
+    <div id="sellModalBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-pass">
+  <div class="modal glass" style="max-width:380px">
+    <button class="modal-close" onclick="closeModal('pass')"><i data-lucide="x"></i></button>
+    <div class="modal-title"><i data-lucide="lock-keyhole"></i>Доступ</div>
+    <div class="bet-input-group mb-16"><label>Пароль админ-панели</label>
+      <input type="password" class="bet-input" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')tryAdminPass()"></div>
+    <button class="btn btn-primary btn-lg" style="width:100%" onclick="tryAdminPass()"><i data-lucide="log-in"></i>ВОЙТИ</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="js/data_loader.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
